@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import '../App.css'
-
+import { Link } from 'react-router-dom'
 const ressources = [
   {
     numero: '01',
@@ -274,9 +274,18 @@ function Accueil() {
 
                 <h3>{item.titre}</h3>
                 <p>{item.description}</p>
-                <a className="card-link" href={item.lien}>
-                  En savoir plus <ArrowIcon />
-                </a>
+                <Link
+  className="card-link"
+  to={
+    item.numero === '01'
+      ? '/prevention/sein'
+      : item.numero === '02'
+        ? '/prevention/col-uterus'
+        : '/orientation'
+  }
+>
+  En savoir plus <ArrowIcon />
+</Link>
               </article>
             ))}
           </div>
