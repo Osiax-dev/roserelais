@@ -234,7 +234,7 @@ Réponds uniquement avec un objet JSON valide, sans Markdown, de cette forme :
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          model: process.env.GROQ_QUIZ_MODEL || 'llama-3.3-70b-versatile',
+          model: process.env.GROQ_QUIZ_MODEL || 'openai/gpt-oss-20b',
           temperature: 0.7,
           max_tokens: 6000,
           response_format: { type: 'json_object' },
