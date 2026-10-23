@@ -3671,3 +3671,31 @@ textarea {
 .site-footer hr {
     border-color: rgba(255, 255, 255, 0.2);
 }
+
+/* Section violette : améliorer la lisibilité */
+.site-shell .repere-section .eyebrow {
+    color: #f0b5cf;
+}
+
+.site-shell .repere-section h2 {
+    color: #ffffff;
+}
+
+.site-shell .repere-section h2 em {
+    color: #ff85b5;
+}
+
+.site-shell .repere-section p {
+    color: #f4eaf2;
+}
+
+/* Texte de la colonne droite */
+.site-shell .repere-section .repere-description {
+    color: #f0dfea;
+}
+
+/* Bouton blanc conservé */
+.site-shell .repere-section .button {
+    color: #a52259;
+    background: #ffffff;
+}
