@@ -5,6 +5,7 @@ import CancerSein from './pages/CancerSein.jsx'
 import CancerColUterus from './pages/CancerColUterus.jsx'
 import Orientation from './pages/Orientation.jsx'
 import ChatAssistant from './components/ChatAssistant.jsx'
+import Quiz from './pages/Quiz.jsx'
 
 function PageIntrouvable() {
   return (
@@ -42,9 +43,12 @@ function App() {
         <Route
           path="/assistant"
           element={<ChatAssistant />}
+
         />
+        <Route path="/quiz" element={<Quiz />} />
 
         <Route path="*" element={<PageIntrouvable />} />
+
       </Routes>
     </BrowserRouter>
   )

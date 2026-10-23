@@ -340,8 +340,9 @@ function Accueil() {
               Explorez ces repères illustrés, avancez à votre rythme et retenez
               l’essentiel pour mieux échanger avec un professionnel de santé.
             </p>
-            <span className="coming-soon">ESPACE ÉDUCATIF EN PRÉPARATION</span>
-          </div>
+<Link className="button button-primary" to="/quiz">
+  Commencer le quiz <ArrowIcon />
+</Link>          </div>
 
           <div className="learning-cards" aria-label="Trois façons d’apprendre">
             <article className="learning-card learning-card-rose">
