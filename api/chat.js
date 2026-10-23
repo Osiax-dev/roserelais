@@ -134,153 +134,146 @@ export default async function handler(req, res) {
     })
   }
 
-  const cle = process.env.GEMINI_API_KEY
+  const cle = process.env.GROQ_API_KEY
 
   if (!cle) {
-    console.error('chat: GEMINI_API_KEY manquante')
-
+    console.error('chat: GROQ_API_KEY manquante')
     return res.status(503).json({
       message: 'Assistant momentanément indisponible.'
     })
   }
 
-  const modele = process.env.GEMINI_MODEL || 'gemini-3.8-flash'
+  const modele = process.env.GROQ_MODEL || 'openai/gpt-oss-20b'
 
-  const contenus = messages.map(m => ({
-    role: m.role === 'assistant' ? 'model' : 'user',
-    parts: [{ text: m.content.trim() }]
-  }))
+  const contenus = [
+    { role: 'system', content: SYSTEM_PROMPT },
+    ...messages.map(m => ({
+      role: m.role === 'assistant' ? 'assistant' : 'user',
+      content: m.content.trim()
+    }))
+  ]
 
-  const url =
-    `https://generativelanguage.googleapis.com/v1beta/models/${modele}:generateContent`
+  const url = 'https://api.groq.com/openai/v1/chat/completions'
 
-  try {
-    for (let tentative = 1; tentative <= MAX_TENTATIVES; tentative++) {
-      const controleur = new AbortController()
-      const minuteur = setTimeout(
-        () => controleur.abort(),
-        DELAI_REQUETE
+  for (let tentative = 1; tentative <= MAX_TENTATIVES; tentative++) {
+    const controleur = new AbortController()
+    const minuteur = setTimeout(
+      () => controleur.abort(),
+      DELAI_REQUETE
+    )
+
+    let reponse
+
+    try {
+      reponse = await fetch(url, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${cle}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          model: modele,
+          messages: contenus,
+          max_completion_tokens: 500,
+          temperature: 0.4
+        }),
+        signal: controleur.signal
+      })
+    } catch (erreur) {
+      console.warn(
+        `chat: erreur réseau Groq, tentative ${tentative}`,
+        erreur?.name
       )
 
-      let reponse
-
-      try {
-        reponse = await fetch(url, {
-          method: 'POST',
-          headers: {
-            'x-goog-api-key': cle,
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            systemInstruction: {
-              parts: [{ text: SYSTEM_PROMPT }]
-            },
-            contents: contenus,
-            generationConfig: {
-              maxOutputTokens: 500
-            }
-          }),
-          signal: controleur.signal
-        })
-      } catch (erreur) {
-        console.warn(
-          `chat: tentative ${tentative}, erreur réseau`,
-          erreur?.name
-        )
-
-        if (tentative === MAX_TENTATIVES) {
-          return res.status(502).json({
-            message: 'Connexion à l’assistant impossible. Réessayez plus tard.'
-          })
-        }
-
-        await attendre(1000 * tentative)
-        continue
-      } finally {
-        clearTimeout(minuteur)
-      }
-
-      if (!reponse.ok) {
-        const statut = reponse.status
-        const detail = await reponse.text()
-
-        console.error(
-          `chat: Gemini HTTP ${statut}, tentative ${tentative}`,
-          detail.slice(0, 1500)
-        )
-
-        const temporaire =
-          statut === 429 ||
-          statut === 500 ||
-          statut === 502 ||
-          statut === 503 ||
-          statut === 504
-
-        if (temporaire && tentative < MAX_TENTATIVES) {
-          await attendre(1000 * tentative)
-          continue
-        }
-
-        if (statut === 429) {
-          return res.status(429).json({
-            message: 'Le service est très sollicité. Réessayez dans un instant.'
-          })
-        }
-
-        if (statut === 503 || statut === 500 || statut === 502 || statut === 504) {
-          return res.status(503).json({
-            message: 'L’assistant est temporairement surchargé. Réessayez dans quelques instants.'
-          })
-        }
-
-        if (statut === 401 || statut === 403) {
-          return res.status(502).json({
-            message: 'Le service IA rencontre un problème de configuration.'
-          })
-        }
-
+      if (tentative === MAX_TENTATIVES) {
         return res.status(502).json({
-          message: 'L’assistant n’a pas pu traiter cette demande.'
+          message: 'Connexion à l’assistant impossible. Réessayez plus tard.'
         })
       }
 
-      let donnees
-
-      try {
-        donnees = await reponse.json()
-      } catch {
-        return res.status(502).json({
-          message: 'Réponse invalide du service IA.'
-        })
-      }
-
-      const texte = donnees.candidates?.[0]?.content?.parts
-        ?.map(part => part.text || '')
-        .join('\n')
-        .trim()
-
-      if (!texte) {
-        console.error(
-          'chat: réponse sans texte',
-          donnees.promptFeedback || donnees.candidates?.[0]?.finishReason
-        )
-
-        return res.status(502).json({
-          message: 'Aucune réponse reçue. Réessayez.'
-        })
-      }
-
-      return res.status(200).json({ reply: texte })
+      await attendre(1000 * tentative)
+      continue
+    } finally {
+      clearTimeout(minuteur)
     }
 
-    return res.status(503).json({
-      message: 'L’assistant est temporairement indisponible.'
-    })
-  } catch (erreur) {
-    console.error('chat: erreur inattendue', erreur?.name)
+    if (!reponse.ok) {
+      const statut = reponse.status
+      const detail = await reponse.text()
 
-    return res.status(502).json({
-      message: 'Assistant momentanément indisponible.'
-    })
+      console.error(
+        `chat: erreur Groq HTTP ${statut}, tentative ${tentative}`,
+        detail.slice(0, 1500)
+      )
+
+      const temporaire =
+        statut === 429 ||
+        statut === 500 ||
+        statut === 502 ||
+        statut === 503 ||
+        statut === 504
+
+      if (temporaire && tentative < MAX_TENTATIVES) {
+        await attendre(1000 * tentative)
+        continue
+      }
+
+      if (statut === 401 || statut === 403) {
+        return res.status(502).json({
+          message: 'La clé ou les autorisations du service IA sont incorrectes.'
+        })
+      }
+
+      if (statut === 404) {
+        return res.status(502).json({
+          message: 'Le modèle IA configuré est introuvable.'
+        })
+      }
+
+      if (statut === 429) {
+        return res.status(429).json({
+          message: 'Le service est très sollicité. Réessayez plus tard.'
+        })
+      }
+
+      if (temporaire) {
+        return res.status(503).json({
+          message: 'L’assistant est temporairement indisponible. Réessayez plus tard.'
+        })
+      }
+
+      return res.status(502).json({
+        message: 'L’assistant n’a pas pu traiter cette demande.'
+      })
+    }
+
+    let donnees
+
+    try {
+      donnees = await reponse.json()
+    } catch {
+      return res.status(502).json({
+        message: 'Réponse invalide du service IA.'
+      })
+    }
+
+    const texte = donnees.choices?.[0]?.message?.content?.trim()
+
+    if (!texte) {
+      console.error(
+        'chat: réponse Groq sans texte',
+        donnees.choices?.[0]?.finish_reason
+      )
+
+      return res.status(502).json({
+        message: 'Aucune réponse reçue. Réessayez.'
+      })
+    }
+
+    return res.status(200).json({ reply: texte })
   }
+
+  return res.status(503).json({
+    message: 'L’assistant est temporairement indisponible.'
+  })
 }
