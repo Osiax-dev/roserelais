@@ -1,0 +1,21 @@
+
+{
+  "id": "/",
+  "name": "RoseRelais",
+  "short_name": "RoseRelais",
+  "description": "Plateforme d'information, de prévention et d'orientation en santé des femmes au Bénin.",
+  "lang": "fr",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#fffdfd",
+  "theme_color": "#d92d78",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
