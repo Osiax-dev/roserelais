@@ -3699,3 +3699,53 @@ textarea {
     color: #a52259;
     background: #ffffff;
 }
+
+/* =========================================
+   ROSERELAIS — CORRECTION SECTION VIOLETTE
+   À placer tout à la fin du fichier CSS
+   ========================================= */
+
+.site-shell .orientation-section .orientation-panel {
+  background: #351b3f !important;
+  color: #ffffff !important;
+}
+
+.site-shell .orientation-section .orientation-content,
+.site-shell .orientation-section .orientation-content h2,
+.site-shell .orientation-section .orientation-content .eyebrow {
+  color: #ffffff !important;
+}
+
+.site-shell .orientation-section .orientation-content h2 em {
+  color: #ff8fbd !important;
+}
+
+.site-shell .orientation-section .orientation-content > p:not(.eyebrow) {
+  color: #f0e7f2 !important;
+  opacity: 1 !important;
+}
+
+.site-shell .orientation-section .orientation-aside,
+.site-shell .orientation-section .orientation-aside p {
+  color: #f0e7f2 !important;
+  opacity: 1 !important;
+}
+
+.site-shell .orientation-section .orientation-aside .aside-star {
+  color: #ff8fbd !important;
+}
+
+.site-shell .orientation-section .orientation-content .eyebrow-light {
+  color: #ffb3d1 !important;
+}
+
+.site-shell .orientation-section .orientation-content .button-light {
+  color: #702044 !important;
+  background: #ffffff !important;
+  border-color: #ffffff !important;
+}
+
+.site-shell .orientation-section .orientation-content .button-light:hover {
+  color: #702044 !important;
+  background: #fff2f6 !important;
+}
