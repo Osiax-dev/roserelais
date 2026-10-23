@@ -3514,3 +3514,160 @@ textarea {
     transition: none !important;
   }
 }
+/* Lisibilité générale de RoseRelais */
+.site-shell {
+  color: #30232b;
+  background: #fffdfd;
+  font-size: 17px;
+  line-height: 1.75;
+}
+
+.site-shell p,
+.site-shell li {
+  color: #493841;
+  font-size: 17px;
+  line-height: 1.8;
+}
+
+.site-shell h1 {
+  color: #55223b;
+  font-size: clamp(2.1rem, 4vw, 3.3rem);
+  line-height: 1.2;
+  font-weight: 800;
+}
+
+.site-shell h2 {
+  color: #642944;
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  line-height: 1.3;
+  font-weight: 750;
+}
+
+.site-shell h3 {
+  color: #55223b;
+  font-size: 1.25rem;
+  line-height: 1.4;
+  font-weight: 750;
+}
+
+.site-shell small,
+.site-shell .eyebrow {
+  color: #684a59;
+}
+
+.site-shell a {
+  color: #8c2854;
+  font-weight: 600;
+}
+
+.site-shell input,
+.site-shell select,
+.site-shell textarea {
+  color: #30232b;
+  background: #ffffff;
+  border: 1px solid #bba7b1;
+  font-size: 16px;
+  min-height: 46px;
+}
+
+.site-shell input:focus,
+.site-shell select:focus,
+.site-shell textarea:focus {
+  outline: 3px solid #f0c4d7;
+  outline-offset: 2px;
+  border-color: #96365f;
+}
+
+.directory-card {
+  background: #ffffff;
+  border: 1px solid #eadde4;
+  border-radius: 18px;
+  box-shadow: 0 6px 24px rgb(70 30 50 / 8%);
+  padding: 24px;
+}
+
+.verification-warning {
+  color: #704400;
+  background: #fff5df;
+  border-radius: 10px;
+  padding: 12px;
+  font-weight: 600;
+}
+
+@media (max-width: 600px) {
+  .site-shell {
+    font-size: 16px;
+  }
+
+  .site-shell p,
+  .site-shell li {
+    font-size: 16px;
+  }
+
+  .directory-card {
+    padding: 18px;
+  }
+}
+.nav-cta {
+    color: #ffffff;
+    background-color: #b91f65;
+    font-weight: 700;
+    opacity: 1;
+}
+
+.nav-cta svg {
+    color: #ffffff;
+    stroke: #ffffff;
+}
+
+/* Texte blanc dans les boutons roses */
+.nav-cta,
+.button-primary,
+.site-shell a.button-primary,
+.site-shell a.nav-cta {
+    color: #ffffff !important;
+}
+
+/* Flèches et icônes des boutons */
+.nav-cta svg,
+.button-primary svg {
+    color: #ffffff;
+    stroke: #ffffff;
+}
+
+/* Lisibilité au survol */
+.nav-cta:hover,
+.button-primary:hover {
+    color: #ffffff !important;
+}
+
+/* Footer RoseRelais : améliorer le contraste du texte */
+.site-footer {
+    color: #ffffff;
+}
+
+.site-footer p,
+.site-footer span,
+.site-footer .footer-tagline {
+    color: #f3eaf1;
+}
+
+/* Texte secondaire */
+.site-footer .footer-description {
+    color: #e2d3e0;
+}
+
+/* Liens du footer */
+.site-footer a {
+    color: #f4a1c4;
+    text-decoration: none;
+}
+
+.site-footer a:hover {
+    color: #ffffff;
+}
+
+/* Ligne de séparation */
+.site-footer hr {
+    border-color: rgba(255, 255, 255, 0.2);
+}

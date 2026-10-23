@@ -57,6 +57,9 @@ const ressources = [
     description: 'Fiche complète sur le cancer du col de l’utérus : prévention, dépistage et prise en charge.',
     url: 'https://www.who.int/fr/news-room/fact-sheets/detail/cervical-cancer',
     action: 'Lire la fiche de l’OMS',
+    image: 'https://www.afro.who.int/sites/default/files/styles/social_1200x630/public/2025-02/1000808414_0.jpg.jpeg?itok=duO_AWxB',
+    fit: 'cover',
+    credit: 'Photo : OMS Bénin, Octobre Rose 2024',
     sigle: 'OMS',
   },
   {
@@ -65,6 +68,9 @@ const ressources = [
     description: 'Informations officielles et possibilité d’échanger avec des experts par le chat du programme.',
     url: 'https://pnlmnt.bj/',
     action: 'Visiter le site du PNLMNT',
+    image: 'https://pnlmnt.bj/storage/app/resources/resize/1280_720_crop/img_2d795096ade338c9f40c7c8253e7ca61.jpeg',
+    fit: 'cover',
+    credit: 'Photo : PNLMNT, Octobre Rose 2026 à Cotonou',
     sigle: 'PNLMNT',
   },
   {
@@ -73,6 +79,9 @@ const ressources = [
     description: 'Présentation de la vaccination contre le virus du papillome humain au Bénin par l’OMS Afrique.',
     url: 'https://www.afro.who.int/node/22584',
     action: 'Lire l’article',
+    image: 'https://www.afro.who.int/sites/default/files/styles/social_1200x630/public/2025-02/1000808414_0.jpg.jpeg?itok=duO_AWxB',
+    fit: 'cover',
+    credit: 'Illustration : OMS Afrique',
     sigle: 'OMS',
   },
   {
@@ -81,6 +90,9 @@ const ressources = [
     description: 'Compte rendu de la campagne de vaccination de décembre 2025 : filles de 9 à 14 ans, dose unique.',
     url: 'https://www.gavi.org/fr/vaccineswork/benin-une-semaine-pour-proteger-pres-un-million-filles-contre-cancer-col-uterus',
     action: 'Lire l’article de Gavi',
+    image: 'https://pnlmnt.bj/storage/app/resources/resize/1280_720_crop/img_2d795096ade338c9f40c7c8253e7ca61.jpeg',
+    fit: 'cover',
+    credit: 'Photo : campagne de sensibilisation PNLMNT',
     sigle: 'GAVI',
   },
   {
@@ -89,6 +101,9 @@ const ressources = [
     description: 'Communiqué du Gouvernement sur la campagne lancée le 31 mars 2026, qui associe dépistage du col et du sein.',
     url: 'https://www.gouv.bj/article/3479/sante-sexuelle-reproductive-gouvernement-lance-jours-planification-depistage-gratuits-cancers-femme/',
     action: 'Lire le communiqué',
+    image: 'https://www.gouv.bj/upload/images/banners//963750137864001775052766.jpg',
+    fit: 'cover',
+    credit: 'Photo : Gouvernement du Bénin',
     sigle: 'GOUV.BJ',
   },
   {
@@ -416,6 +431,24 @@ function CancerColUterus() {
 
         .col-page * { box-sizing: border-box; }
 
+        /* Typographie isolée de cette page : évite les conflits avec App.css. */
+        .col-page { font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #40303a; }
+        .col-page main { color: #40303a; }
+        .col-page p, .col-page li { color: #4b3a45; font-size: 16px; line-height: 1.8; }
+        .col-page h1, .col-page h2, .col-page h3, .col-page h4 { color: #30212b; line-height: 1.3; overflow-wrap: anywhere; }
+        .col-page strong { color: #30212b; }
+        .col-page a { -webkit-tap-highlight-color: transparent; }
+        .col-page .col-card { color: #40303a; background: #fff; }
+        .col-page .col-card p { color: #4b3a45 !important; }
+        .col-page .col-card h3 { color: #30212b !important; }
+        .col-page .col-org-visual { min-height: 130px; }
+        .col-page .col-org-visual img { object-position: center; }
+        .col-page .col-org-fallback { color: #702344; background: linear-gradient(135deg, #fff0f6, #f8eaf1); }
+        .col-page .col-link { color: #702344; text-underline-offset: 3px; }
+        .col-page .col-faq summary { color: #30212b; line-height: 1.6; }
+        .col-page .col-faq p { color: #4b3a45 !important; }
+        .col-page :focus-visible { outline: 3px solid #a43b68; outline-offset: 3px; }
+
         .col-page figure { margin: 0; }
 
         .col-page .col-link {
@@ -588,10 +621,17 @@ function CancerColUterus() {
         }
 
         @media (max-width: 760px) {
-          .col-page .col-hero { padding-top: 44px !important; padding-bottom: 48px !important; }
-          .col-page .col-section { padding: 52px 20px !important; }
-          .col-page .col-buttons { align-items: stretch; }
-          .col-page .col-button { width: 100%; }
+          .col-page .col-hero { padding: 44px 18px 48px !important; }
+          .col-page .col-section { padding: 48px 18px !important; }
+          .col-page .col-buttons { align-items: stretch; flex-direction: column; }
+          .col-page .col-button { width: 100%; text-align: center; }
+          .col-page .col-org-visual { height: 145px; }
+          .col-page p, .col-page li { font-size: 15.5px; line-height: 1.8; }
+        }
+        @media (max-width: 420px) {
+          .col-page .col-hero-grid { gap: 24px; }
+          .col-page .col-card { padding: 20px !important; }
+          .col-page .col-org-credit { font-size: 10px; }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -605,8 +645,13 @@ function CancerColUterus() {
       <header className="site-header">
         <div className="header-inner">
           <Link className="brand" to="/" aria-label="RoseRelais, accueil">
-            <img src="/logo.svg" alt="" width="44" height="44" />
-            <span className="brand-copy">
+<img
+  src="/images/RoseRelais_logo_R2.png"
+  alt="Logo RoseRelais"
+  width={44}
+  height={44}
+  className="object-contain"
+/>            <span className="brand-copy">
               <strong>RoseRelais</strong>
               <small>Informer. Orienter. Accompagner.</small>
             </span>
@@ -1048,7 +1093,13 @@ function CancerColUterus() {
             textDecoration: 'none',
           }}
         >
-          <img src="/logo.svg" alt="" width="34" height="34" />
+          <img
+  src="/images/RoseRelais_logo_R2.png"
+  alt="Logo RoseRelais"
+  width={44}
+  height={44}
+  className="object-contain"
+/>
           <strong style={{ fontSize: 18 }}>RoseRelais</strong>
         </Link>
 

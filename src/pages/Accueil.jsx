@@ -38,7 +38,13 @@ function Logo({ footer = false }) {
       href="#accueil"
       aria-label="RoseRelais, accueil"
     >
-      <img src="/logo.svg" alt="" width="44" height="44" />
+      <img
+  src="/images/RoseRelais_logo_R2.png"
+  alt="Logo RoseRelais"
+  width={44}
+  height={44}
+  className="object-contain"
+/>
       <span className="brand-copy">
         <strong>RoseRelais</strong>
         <small>Informer. Orienter. Accompagner.</small>

@@ -768,8 +768,13 @@ function CancerSein() {
       <header className="site-header">
         <div className="header-inner">
           <Link className="brand" to="/" aria-label="RoseRelais, accueil">
-            <img src="/logo.svg" alt="" width="44" height="44" />
-            <span className="brand-copy">
+<img
+  src="/images/RoseRelais_logo_R2.png"
+  alt="Logo RoseRelais"
+  width={44}
+  height={44}
+  className="object-contain"
+/>            <span className="brand-copy">
               <strong>RoseRelais</strong>
               <small>Informer. Orienter. Accompagner.</small>
             </span>
@@ -1518,7 +1523,13 @@ function CancerSein() {
             textDecoration: 'none',
           }}
         >
-          <img src="/logo.svg" alt="" width="34" height="34" />
+          <img
+  src="/images/RoseRelais_logo_R2.png"
+  alt="Logo RoseRelais"
+  width={44}
+  height={44}
+  className="object-contain"
+/>
           <strong style={{ fontSize: 18 }}>RoseRelais</strong>
         </Link>
 
